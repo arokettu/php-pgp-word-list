@@ -73,7 +73,7 @@ final class PgpWordList
     {
         $encoded = [];
 
-        for ($i = 0; $i < \strlen($bytes); $i++) {
+        for ($i = 0; $i < \strlen($bytes); $i +=1 ) {
             // odd and even are reversed here because words are counted from 1 and bytes are counted from 0
             $encoded[] = (($i % 2 === 0) ? self::ODD_WORDS : self::EVEN_WORDS)[\ord($bytes[$i])];
         }
@@ -81,8 +81,36 @@ final class PgpWordList
         return implode(' ', $encoded);
     }
 
-    public static function decode(string $encoded): string
+    public static function decode(string $encoded, int $fuzzy = 0): string
     {
-        throw new \LogicException('not implemented');
+        if ($fuzzy < 0) {
+            throw new \DomainException('$fuzzy must be a non-negative value');
+        }
+
+        $odd = array_flip(array_map(function ($s) {
+            return strtolower($s);
+        }, self::ODD_WORDS));
+        $even = array_flip(array_map(function ($s) {
+            return strtolower($s);
+        }, self::EVEN_WORDS));
+
+        $words = array_values(array_filter(explode(' ', $encoded), function ($s) {
+            return $s !== '';
+        }));
+        $decoded = '';
+
+        for ($i = 0; $i < \count($words); $i += 1) {
+            $wordValues = ($i % 2 === 0) ? $odd : $even;
+
+            $word = strtolower($words[$i]);
+            if (isset($wordValues[$word])) {
+                $decoded .= \chr($wordValues[$word]);
+                continue;
+            }
+
+            throw new \RuntimeException('Unable to decode word: ' . $word);
+        }
+
+        return $decoded;
     }
 }
