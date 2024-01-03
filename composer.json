@@ -1,6 +1,28 @@
 {
     "name": "arokettu/pgp-word-list",
     "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        },
         "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Arokettu\\PgpWordList\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Arokettu\\PgpWordList\\Tests\\": "tests"
+        }
+    },
+    "require": {
+        "php": "^7.1 | ^8.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5 | ^8.5 | ^9.5",
+        "sandfox.dev/code-standard": "^1.2023.12.09",
+        "squizlabs/php_codesniffer": "*",
+        "vimeo/psalm": "^5.18"
     }
 }
