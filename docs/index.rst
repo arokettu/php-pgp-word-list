@@ -34,8 +34,6 @@ Decoding
 
 Decoding will succeed if words are given for the correct odd/even positions::
 
-::
-
     <?php
 
     \Arokettu\PgpWordList\PgpWordList::decode(
