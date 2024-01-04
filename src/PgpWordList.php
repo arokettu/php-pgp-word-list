@@ -73,7 +73,7 @@ final class PgpWordList
     {
         $encoded = [];
 
-        for ($i = 0; $i < \strlen($bytes); $i +=1 ) {
+        for ($i = 0; $i < \strlen($bytes); $i += 1) {
             // odd and even are reversed here because words are counted from 1 and bytes are counted from 0
             $encoded[] = (($i % 2 === 0) ? self::ODD_WORDS : self::EVEN_WORDS)[\ord($bytes[$i])];
         }
