@@ -1,5 +1,23 @@
 {
     "name": "arokettu/pgp-word-list",
+    "type": "library",
+    "description": "PGP Word List Encoder/Decoder",
+    "license": "MIT",
+    "keywords": ["pgp word list", "encoding", "human-readable"],
+    "homepage": "https://sandfox.dev/php/pgp-word-list.html",
+    "authors": [
+        {
+            "name": "Anton Smirnov",
+            "role": "developer",
+            "homepage": "https://sandfox.me/",
+            "email": "sandfox@sandfox.me"
+        }
+    ],
+    "support": {
+        "issues": "https://gitlab.com/sandfox/php-pgp-word-list/-/issues",
+        "source": "https://gitlab.com/sandfox/php-pgp-word-list",
+        "chat": "https://gitter.im/arokettu/community"
+    },
     "config": {
         "allow-plugins": {
             "dealerdirect/phpcodesniffer-composer-installer": true
