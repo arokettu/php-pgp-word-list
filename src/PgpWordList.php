@@ -108,6 +108,27 @@ final class PgpWordList
                 continue;
             }
 
+            if ($fuzzy > 0) {
+                $distances = [];
+
+                foreach ($wordValues as $w => $v) {
+                    $dist = levenshtein($w, $word);
+                    if ($dist === -1) {
+                        throw new \RuntimeException('Unable to do fuzzy search for the word: ' . $word);
+                    }
+
+                    if ($dist <= $fuzzy) {
+                        $distances[$v] = $dist;
+                    }
+                }
+
+                if ($distances !== []) {
+                    asort($distances);
+                    $decoded .= \chr(array_key_first($distances));
+                    continue;
+                }
+            }
+
             throw new \RuntimeException('Unable to decode word: ' . $word);
         }
 

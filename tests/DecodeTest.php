@@ -51,4 +51,12 @@ class DecodeTest extends TestCase
 
         self::assertEquals($hex, bin2hex(PgpWordList::decode($encoded)));
     }
+
+    public function testDecodeFuzzy(): void
+    {
+        $hex = '12b4b0057400076f';
+        $encoded = '  Altas  politeness  ruffeled  allmighty  InDoors   androidness  ahead hemisfere  ';
+
+        self::assertEquals($hex, bin2hex(PgpWordList::decode($encoded, 2)));
+    }
 }
