@@ -108,14 +108,12 @@ final class PgpWordList
                 continue;
             }
 
-            if ($fuzzy > 0) {
+            // do not do fuzzy search for values > 50 chars
+            if ($fuzzy > 0 && \strlen($word) < 50) {
                 $distances = [];
 
                 foreach ($wordValues as $w => $v) {
                     $dist = levenshtein($w, $word);
-                    if ($dist === -1) {
-                        throw new \RuntimeException('Unable to do fuzzy search for the word: ' . $word);
-                    }
 
                     if ($dist <= $fuzzy) {
                         $distances[$v] = $dist;
