@@ -59,4 +59,20 @@ class DecodeTest extends TestCase
 
         self::assertEquals($hex, bin2hex(PgpWordList::decode($encoded, 2)));
     }
+
+    public function testFuzzyMustNotBeNegative(): void
+    {
+        $this->expectException(\DomainException::class);
+        $this->expectExceptionMessage('$fuzzy must be a non-negative value');
+        PgpWordList::decode('', -1);
+    }
+
+    public function testLevenshteinLimit(): void
+    {
+        $word = str_repeat('a', 300);
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to decode word: ' . $word);
+        PgpWordList::decode($word, 1);
+    }
 }
