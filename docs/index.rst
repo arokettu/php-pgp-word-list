@@ -22,7 +22,7 @@ Documentation
 Encoding
 --------
 
-RFC 1751 algorithm encodes binary data by assigning an English word to every byte::
+PGP Word List algorithm encodes binary data by assigning an English word to every byte::
 
     <?php
 
