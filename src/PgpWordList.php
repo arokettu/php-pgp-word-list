@@ -111,19 +111,26 @@ final class PgpWordList
             // do not do fuzzy search for values > 50 chars
             if ($fuzzy > 0 && \strlen($word) < 50) {
                 $distances = [];
+                $minDist = $fuzzy;
 
                 foreach ($wordValues as $w => $v) {
                     $dist = levenshtein($w, $word);
 
-                    if ($dist <= $fuzzy) {
+                    if ($dist <= $minDist) {
+                        $minDist = $dist;
                         $distances[$v] = $dist;
+                        $wordsssss[$w] = $dist;
                     }
                 }
 
                 if ($distances !== []) {
-                    asort($distances);
-                    $decoded .= \chr(array_key_first($distances));
-                    continue;
+                    $distances = array_filter($distances, function ($d) use ($minDist) {
+                        return $d === $minDist;
+                    });
+                    if (count($distances) === 1) { // unambiguously found
+                        $decoded .= \chr(array_key_first($distances));
+                        continue;
+                    }
                 }
             }
 

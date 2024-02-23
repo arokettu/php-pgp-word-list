@@ -60,6 +60,14 @@ class DecodeTest extends TestCase
         self::assertEquals($hex, bin2hex(PgpWordList::decode($encoded, 2)));
     }
 
+    public function testDecodeEvenVeryFuzzy(): void
+    {
+        $hex = '12b4b0057400076f';
+        $encoded = '  Altas  politeness  ruffeled  allmighty  InDoors   androidness  ahead hemisfere  ';
+
+        self::assertEquals($hex, bin2hex(PgpWordList::decode($encoded, 20)));
+    }
+
     public function testFuzzyMustNotBeNegative(): void
     {
         $this->expectException(\DomainException::class);
@@ -74,5 +82,14 @@ class DecodeTest extends TestCase
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Unable to decode word: ' . $word);
         PgpWordList::decode($word, 1);
+    }
+
+    public function testFailOnAmbiguity(): void
+    {
+        $word = 'acmo'; // 1 dist to ammo (0x03) and acme (0x0c)
+
+        $this->expectException(\RuntimeException::class);
+        $this->expectExceptionMessage('Unable to decode word: ' . $word);
+        PgpWordList::decode($word, 10);
     }
 }
