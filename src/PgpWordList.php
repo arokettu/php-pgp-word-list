@@ -127,7 +127,7 @@ final class PgpWordList
                     $distances = array_filter($distances, function ($d) use ($minDist) {
                         return $d === $minDist;
                     });
-                    if (count($distances) === 1) { // unambiguously found
+                    if (\count($distances) === 1) { // unambiguously found
                         $decoded .= \chr(array_key_first($distances));
                         continue;
                     }
