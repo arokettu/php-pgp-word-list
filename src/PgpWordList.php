@@ -119,7 +119,6 @@ final class PgpWordList
                     if ($dist <= $minDist) {
                         $minDist = $dist;
                         $distances[$v] = $dist;
-                        $wordsssss[$w] = $dist;
                     }
                 }
 
