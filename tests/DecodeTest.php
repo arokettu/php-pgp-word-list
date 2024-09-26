@@ -38,7 +38,7 @@ class DecodeTest extends TestCase
         // odd/even word on even/odd position
         $encoded = 'atlas politeness almighty indoors adroitness ahead hemisphere';
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Unable to decode word: almighty');
         self::assertEquals($hex, bin2hex(PgpWordList::decode($encoded)));
     }
@@ -79,7 +79,7 @@ class DecodeTest extends TestCase
     {
         $word = str_repeat('a', 300);
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Unable to decode word: ' . $word);
         PgpWordList::decode($word, 1);
     }
@@ -88,7 +88,7 @@ class DecodeTest extends TestCase
     {
         $word = 'acmo'; // 1 dist to ammo (0x03) and acme (0x0c)
 
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(\UnexpectedValueException::class);
         $this->expectExceptionMessage('Unable to decode word: ' . $word);
         PgpWordList::decode($word, 10);
     }

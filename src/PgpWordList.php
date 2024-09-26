@@ -133,7 +133,7 @@ final class PgpWordList
                 }
             }
 
-            throw new \RuntimeException('Unable to decode word: ' . $word);
+            throw new \UnexpectedValueException('Unable to decode word: ' . $word);
         }
 
         return $decoded;
