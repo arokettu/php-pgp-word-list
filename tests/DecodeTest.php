@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2024 Anton Smirnov
+ * @license MIT https://spdx.org/licenses/MIT.html
+ */
+
 declare(strict_types=1);
 
 namespace Arokettu\PgpWordList\Tests;
@@ -7,7 +12,7 @@ namespace Arokettu\PgpWordList\Tests;
 use Arokettu\PgpWordList\PgpWordList;
 use PHPUnit\Framework\TestCase;
 
-class DecodeTest extends TestCase
+final class DecodeTest extends TestCase
 {
     public function testDecodeRegular(): void
     {

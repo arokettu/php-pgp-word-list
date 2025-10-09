@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @copyright 2024 Anton Smirnov
+ * @license MIT https://spdx.org/licenses/MIT.html
+ */
+
 declare(strict_types=1);
 
 namespace Arokettu\PgpWordList;
@@ -87,14 +92,14 @@ final class PgpWordList
             throw new \DomainException('$fuzzy must be a non-negative value');
         }
 
-        $odd = array_flip(array_map(function ($s) {
+        $odd = array_flip(array_map(static function ($s) {
             return strtolower($s);
         }, self::ODD_WORDS));
-        $even = array_flip(array_map(function ($s) {
+        $even = array_flip(array_map(static function ($s) {
             return strtolower($s);
         }, self::EVEN_WORDS));
 
-        $words = array_values(array_filter(explode(' ', $encoded), function ($s) {
+        $words = array_values(array_filter(explode(' ', $encoded), static function ($s) {
             return $s !== '';
         }));
         $decoded = '';
@@ -123,7 +128,7 @@ final class PgpWordList
                 }
 
                 if ($distances !== []) {
-                    $distances = array_filter($distances, function ($d) use ($minDist) {
+                    $distances = array_filter($distances, static function ($d) use ($minDist) {
                         return $d === $minDist;
                     });
                     if (\count($distances) === 1) { // unambiguously found
